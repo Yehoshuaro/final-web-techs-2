@@ -4,6 +4,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("./models/User");
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = 3000;
@@ -104,10 +105,44 @@ app.delete("/users/:id", async (req, res) => {
 });
 
 
+// My BMI
+
 app.get('/bmi', (req, res) => {
     res.sendFile(__dirname + '/public/bmi.html');
 });
 
+
+// Nodemailer (I will divide it like that, because I am tired to search every time)
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'yerkhan2708@gmail.com',
+        pass: 'here is the password, I will not give it by GitHub, haha',
+    },
+});
+
+app.post('/send-email', (req, res) => {
+    const { to, subject, message } = req.body;
+
+    const mailOptions = {
+        from: 'yerkhan2708@gmail.com',
+        to,
+        subject,
+        text: message,
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            return res.json({ message: 'Error sending email' });
+        }
+        res.json({ message: 'Email sent successfully!' });
+    });
+});
+
+app.get('/email', (req, res) => {
+    res.sendFile(__dirname + '/public/nodemailer.html');
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: #222;
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+}
+
+input, textarea {
+    display: block;
+    width: 87%;
+    padding: 17px;
+    margin: 10px 0;
+    background: black;
+    color: white;
+    border-radius: 3px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: darkred;
+}
+
+#status {
+    margin-top: 10px;
+    font-size: 1.2em;
+}
