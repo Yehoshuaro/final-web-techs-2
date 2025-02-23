@@ -65,7 +65,6 @@ app.get("/users", async (req, res) => {
     }
 });
 
-// Добавить пользователя (Регистрация)
 app.post("/register", async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
@@ -85,7 +84,6 @@ app.post("/register", async (req, res) => {
     }
 });
 
-// Обновить роль пользователя
 app.put("/users/:id", async (req, res) => {
     try {
         const { role } = req.body;
@@ -96,7 +94,6 @@ app.put("/users/:id", async (req, res) => {
     }
 });
 
-// Удалить пользователя
 app.delete("/users/:id", async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);
@@ -105,7 +102,6 @@ app.delete("/users/:id", async (req, res) => {
         res.status(500).json({ message: "Error deleting user" });
     }
 });
-
 
 
 app.listen(PORT, () => {

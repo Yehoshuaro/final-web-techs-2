@@ -39,3 +39,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+function generateQRCode() {
+    let input = document.getElementById("qr-input").value;
+    let qrImage = document.getElementById("qr-image");
+
+    if (input.trim() === "") {
+        alert("Enter a valid URL!");
+        return;
+    }
+
+    qrImage.style.display = "block";
+    qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(input)}`;
+}
