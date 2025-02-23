@@ -55,6 +55,59 @@ app.post("/login", async (req, res) => {
     }
 });
 
+
+app.get("/users", async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: "Error loading users" });
+    }
+});
+
+// Добавить пользователя (Регистрация)
+app.post("/register", async (req, res) => {
+    try {
+        const { name, email, password, role } = req.body;
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({ name, email, password: hashedPassword, role });
+        await newUser.save();
+
+        res.status(201).json({ message: "User registered successfully", success: true });
+    } catch (error) {
+        res.status(500).json({ message: "Error registering user" });
+    }
+});
+
+// Обновить роль пользователя
+app.put("/users/:id", async (req, res) => {
+    try {
+        const { role } = req.body;
+        await User.findByIdAndUpdate(req.params.id, { role });
+        res.json({ message: "Role updated successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating role" });
+    }
+});
+
+// Удалить пользователя
+app.delete("/users/:id", async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.json({ message: "User deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting user" });
+    }
+});
+
+
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

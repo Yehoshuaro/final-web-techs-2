@@ -2,9 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="admin-panel.css">
+
 </head>
 <body>
+<div class="admin-container">
+    <h2>Admin Panel</h2>
 
+    <form id="addUserForm">
+        <input type="text" id="newUserName" placeholder="Name" required>
+        <input type="email" id="newUserEmail" placeholder="Email" required>
+        <input type="password" id="newUserPassword" placeholder="Password" required>
+        <select id="newUserRole">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button type="submit">Add User</button>
+    </form>
+
+    <table id="userTable">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="userList"></tbody>
+    </table>
+</div>
+
+<a href="admin-main.html" class="btn btn-secondary">Return back to the Home</a>
+
+<script src="admin-panel.js"></script>
 </body>
 </html>

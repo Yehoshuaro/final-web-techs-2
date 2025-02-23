@@ -1,0 +1,113 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background: #111;
+    color: #fff;
+}
+
+.admin-container {
+    padding: 30px;
+    max-width: 80%;
+    margin: auto;
+    background: #111;
+    border-radius: 10px;
+}
+
+h2 {
+    text-align: center;
+    color: #ff3b3b;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+form {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    padding: 10px;
+    border-radius: 6px;
+    border: #1a1a1a;
+    font-size: 14px;
+    background: #222;
+    color: #fff;
+}
+
+button {
+    background: #ff3b3b;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #cc0000;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #444;
+    text-align: left;
+}
+
+th {
+    background-color: #ff3b3b;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #222;
+}
+
+tr:nth-child(odd) {
+    background: #111;
+}
+
+.edit-btn, .delete-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #007bff;
+}
+
+.delete-btn {
+    background-color: #ff3b3b;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+.btn-secondary {
+    display: block;
+    width: fit-content;
+    margin: 15px auto;
+    padding: 10px 18px;
+    background: #ff3b3b;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+}
+
