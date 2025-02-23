@@ -1,0 +1,132 @@
+body, h1, h2, p, ul, li, a, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #B22222;
+}
+
+.navbar-logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: #f8c291;
+}
+
+.auth-buttons .btn {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #B22222;
+    background-color: white;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: 0.3s;
+}
+
+.auth-buttons .btn-secondary {
+    background-color: black;
+    color: white;
+}
+
+.auth-buttons .btn:hover {
+    background-color: #f8c291;
+    color: black;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background-color: #B22222;
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+}
+
+.cta-button {
+    padding: 15px 30px;
+    background-color: white;
+    color: #B22222;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.cta-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #222;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #B22222;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: black;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: black;
+    color: white;
+}
