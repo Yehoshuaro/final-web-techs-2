@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("./models/User");
 const nodemailer = require('nodemailer');
+const Blog = require("./models/Blog");
 
 const app = express();
 const PORT = 3000;
@@ -142,6 +143,32 @@ app.post('/send-email', (req, res) => {
 
 app.get('/email', (req, res) => {
     res.sendFile(__dirname + '/public/nodemailer.html');
+});
+
+
+// my blogs
+
+app.get("/blogs", async (req, res) => {
+    const blogs = await Blog.find();
+    res.json(blogs);
+});
+
+app.post("/blogs", async (req, res) => {
+    const blog = new Blog(req.body);
+    await blog.save();
+    res.status(201).json(blog);
+});
+
+app.put("/blogs/:id", async (req, res) => {
+    const { id } = req.params;
+    await Blog.findByIdAndUpdate(id, req.body);
+    res.json({ message: "Блог обновлен" });
+});
+
+app.delete("/blogs/:id", async (req, res) => {
+    const { id } = req.params;
+    await Blog.findByIdAndDelete(id);
+    res.json({ message: "Блог удален" });
 });
 
 app.listen(PORT, () => {
