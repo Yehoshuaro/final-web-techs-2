@@ -104,6 +104,11 @@ app.delete("/users/:id", async (req, res) => {
 });
 
 
+app.get('/bmi', (req, res) => {
+    res.sendFile(__dirname + '/public/bmi.html');
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
