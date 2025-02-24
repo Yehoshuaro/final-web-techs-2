@@ -3,12 +3,15 @@ const cors = require("cors");
 const path = require("path");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const axios = require("axios");
 const User = require("./models/User");
 const nodemailer = require('nodemailer');
 const Blog = require("./models/Blog");
 
 const app = express();
 const PORT = 3000;
+const WEATHER_API_KEY = "741c4f47aee70150e0f0ca7db37ae172";
+const FLAG_API_URL = "https://flagcdn.com/w320/";
 
 app.use(cors());
 app.use(express.json());
@@ -171,6 +174,44 @@ app.delete("/blogs/:id", async (req, res) => {
     res.json({ message: "Блог удален" });
 });
 
+
+app.get("/weather", async (req, res) => {
+    try {
+        const { city } = req.query;
+        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${WEATHER_API_KEY}&units=metric`;
+        const response = await axios.get(weatherUrl);
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ message: "Ошибка получения погоды" });
+    }
+});
+
+app.get("/time", async (req, res) => {
+    try {
+        const { city } = req.query;
+        const timeUrl = `http://worldtimeapi.org/api/timezone/${city}`;
+        const response = await axios.get(timeUrl);
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ message: "Ошибка получения времени" });
+    }
+});
+
+app.get("/airquality", async (req, res) => {
+    try {
+        const { lat, lon } = req.query;
+        const airQualityUrl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`;
+        const response = await axios.get(airQualityUrl);
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ message: "Ошибка получения качества воздуха" });
+    }
+});
+
+
+
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+

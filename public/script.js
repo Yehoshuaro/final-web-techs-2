@@ -52,3 +52,26 @@ function generateQRCode() {
     qrImage.style.display = "block";
     qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(input)}`;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    window.getWeather = async function () {
+        const city = document.getElementById("cityInput").value;
+        if (!city) return alert("Введите город!");
+
+        try {
+            const weatherRes = await fetch(`/weather?city=${city}`);
+            const weatherData = await weatherRes.json();
+            document.getElementById("weather").innerText = `Температура: ${weatherData.main.temp}°C, ${weatherData.weather[0].description}`;
+
+            const currencyRes = await fetch(`/currency?country=${weatherData.sys.country}`);
+            const currencyData = await currencyRes.json();
+            document.getElementById("currency").innerText = `Курс валюты: 1 USD = ${currencyData.data.USD.value} ${weatherData.sys.country}`;
+
+            const timeRes = await fetch(`/time?city=${city}`);
+            const timeData = await timeRes.json();
+            document.getElementById("time").innerText = `Время в городе: ${timeData.datetime}`;
+        } catch (error) {
+            alert("Ошибка загрузки данных");
+        }
+    };
+});
