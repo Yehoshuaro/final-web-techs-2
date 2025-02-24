@@ -165,13 +165,13 @@ app.post("/blogs", async (req, res) => {
 app.put("/blogs/:id", async (req, res) => {
     const { id } = req.params;
     await Blog.findByIdAndUpdate(id, req.body);
-    res.json({ message: "Блог обновлен" });
+    res.json({ message: "Blog was updated" });
 });
 
 app.delete("/blogs/:id", async (req, res) => {
     const { id } = req.params;
     await Blog.findByIdAndDelete(id);
-    res.json({ message: "Блог удален" });
+    res.json({ message: "Blog was deleted" });
 });
 
 
@@ -184,7 +184,7 @@ app.get("/weather", async (req, res) => {
         const response = await axios.get(weatherUrl);
         res.json(response.data);
     } catch (error) {
-        res.status(500).json({ message: "Ошибка получения погоды" });
+        res.status(500).json({ message: "Error" });
     }
 });
 
@@ -195,7 +195,7 @@ app.get("/time", async (req, res) => {
         const response = await axios.get(timeUrl);
         res.json(response.data);
     } catch (error) {
-        res.status(500).json({ message: "Ошибка получения времени" });
+        res.status(500).json({ message: "Error getting the time, wait" });
     }
 });
 
@@ -206,7 +206,7 @@ app.get("/airquality", async (req, res) => {
         const response = await axios.get(airQualityUrl);
         res.json(response.data);
     } catch (error) {
-        res.status(500).json({ message: "Ошибка получения качества воздуха" });
+        res.status(500).json({ message: "Error" });
     }
 });
 

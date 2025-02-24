@@ -56,22 +56,20 @@ function generateQRCode() {
 document.addEventListener("DOMContentLoaded", () => {
     window.getWeather = async function () {
         const city = document.getElementById("cityInput").value;
-        if (!city) return alert("Введите город!");
+        if (!city) return alert("Enter the city");
 
         try {
             const weatherRes = await fetch(`/weather?city=${city}`);
             const weatherData = await weatherRes.json();
-            document.getElementById("weather").innerText = `Температура: ${weatherData.main.temp}°C, ${weatherData.weather[0].description}`;
+            document.getElementById("weather").innerText = `Temperature: ${weatherData.main.temp}°C, ${weatherData.weather[0].description}`;
 
             const currencyRes = await fetch(`/currency?country=${weatherData.sys.country}`);
-            const currencyData = await currencyRes.json();
-            document.getElementById("currency").innerText = `Курс валюты: 1 USD = ${currencyData.data.USD.value} ${weatherData.sys.country}`;
 
             const timeRes = await fetch(`/time?city=${city}`);
             const timeData = await timeRes.json();
             document.getElementById("time").innerText = `Время в городе: ${timeData.datetime}`;
         } catch (error) {
-            alert("Ошибка загрузки данных");
+            alert("Errrrorrrrr");
         }
     };
 });
@@ -122,14 +120,15 @@ function displayWeather(data) {
 
     weatherResult.innerHTML = `
         <h2>${name}, ${sys.country}</h2>
-        <img src="${flagUrl}" alt="Флаг ${sys.country}" width="50" height="30">
-        <p>Координаты: ${coord.lat}, ${coord.lon}</p>
-        <p>Температура: ${main.temp}°C</p>
-        <p>Ощущается как: ${main.feels_like}°C</p>
-        <p>Погода: ${weather[0].description}</p>
-        <p>Влажность: ${main.humidity}%</p>
-        <p>Давление: ${main.pressure} hPa</p>
-        <p>Скорость ветра: ${wind.speed} м/с</p>
+        <img src="${flagUrl}" alt="Flag ${sys.country}" width="150" height="120">
+        <p>Prеssurе: ${main.pressure} hPa</p>
+        <p>Wind speed: ${wind.speed} m/s</p>
+        <p>Coordinatеs: ${coord.lat}, ${coord.lon}</p>
+        <p>Wеthеr: ${weather[0].description}</p>
+        <p>Temprrature: ${main.temp}°C</p>
+        <p>Fееls likе: ${main.feels_like}°C</p>
+        <p>Humidity: ${main.humidity}%</p>
+        
     `;
 }
 
@@ -141,14 +140,14 @@ async function fetchAQI(lat, lon) {
         const data = await response.json();
         displayAQI(data);
     } catch (error) {
-        aqiResult.innerHTML = `<p>Error with getting AQI</p>`;
+        aqiResult.innerHTML = `<p>Errоr with getting АQI</p>`;
     }
 }
 
 function displayAQI(data) {
     const aqi = data.list[0].main.aqi;
-    const aqiLevels = ["Хороший", "Приемлемый", "Умеренный", "Плохой", "Очень плохой"];
-    aqiResult.innerHTML = `<p>Индекс качества воздуха: ${aqi} - ${aqiLevels[aqi - 1]}</p>`;
+    const aqiLevels = ["Gооd", "Nоrmal", "Stablе", "Bаd", "Dаngеrоus"];
+    aqiResult.innerHTML = `<p>Air Quality Index: ${aqi} - ${aqiLevels[aqi - 1]}</p>`;
 }
 
 async function fetchTime(lat, lon) {
@@ -157,9 +156,9 @@ async function fetchTime(lat, lon) {
     try {
         const response = await fetch(timeUrl);
         const data = await response.json();
-        timeResult.innerHTML = `<p>Текущее время: ${data.time}</p>`;
+        timeResult.innerHTML = `<p>Current time: ${data.time}</p>`;
     } catch (error) {
-        timeResult.innerHTML = `<p>Ошибка при получении времени</p>`;
+        timeResult.innerHTML = `<p>Error with catching the time, wait a sec</p>`;
     }
 }
 
@@ -171,9 +170,9 @@ async function fetchCurrency(countryCode) {
         const data = await response.json();
         const currencyInfo = Object.values(data[0].currencies)[0];
 
-        currencyResult.innerHTML = `<p><strong>Валюта:</strong> ${currencyInfo.name} (${currencyInfo.symbol})</p>`;
+        currencyResult.innerHTML = `<p><strong>Currency:</strong> ${currencyInfo.name} (${currencyInfo.symbol})</p>`;
     } catch (error) {
-        currencyResult.innerHTML = `<p>Ошибка при получении валюты</p>`;
+        currencyResult.innerHTML = `<p>Error with cathing the currency</p>`;
     }
 }
 
@@ -183,6 +182,6 @@ weatherForm.addEventListener('submit', (e) => {
     if (city) {
         fetchWeather(city);
     } else {
-        weatherResult.innerHTML = `<p>Введите название города</p>`;
+        weatherResult.innerHTML = `<p>Enter the city</p>`;
     }
 });

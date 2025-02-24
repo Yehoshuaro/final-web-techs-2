@@ -1,7 +1,13 @@
 body {
+    background-color: #121212;
+    color: #ffffff;
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
+}
+
+h1 {
+    color: #ffffff;
 }
 
 form {
@@ -11,22 +17,36 @@ form {
 input {
     padding: 10px;
     font-size: 16px;
+    background-color: #1e1e1e;
+    border: 1px solid #ff4c4c;
+    color: #ffffff;
 }
 
 button {
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
+    background-color: #ff4c4c;
+    border: none;
+    color: #ffffff;
+}
+
+button:hover {
+    background-color: #b22222;
 }
 
 #weatherResult, #aqiResult, #timeResult, #currencyResult {
     margin-top: 20px;
     font-size: 18px;
+    padding: 10px;
+    border: 1px solid #ff4c4c;
+    background-color: #1e1e1e;
+    border-radius: 5px;
 }
 
 #map {
     height: 400px;
     width: 100%;
     margin-top: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #ff4c4c;
 }
