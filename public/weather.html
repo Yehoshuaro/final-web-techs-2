@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API</title>
+    <link rel="stylesheet" href="weather.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+
+<h1>Weather and Information about the City</h1>
+
+<form id="weatherForm">
+    <input type="text" id="cityInput" placeholder="Enter the city..." required>
+    <button type="submit">Get Result</button>
+</form>
+
+<div id="weatherResult"></div>
+<div id="aqiResult"></div>
+<div id="timeResult"></div>
+<div id="currencyResult"></div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

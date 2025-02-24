@@ -75,3 +75,114 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 });
+
+const weatherForm = document.getElementById('weatherForm');
+const cityInput = document.getElementById('cityInput');
+const weatherResult = document.getElementById('weatherResult');
+const aqiResult = document.getElementById('aqiResult');
+const timeResult = document.getElementById('timeResult');
+const currencyResult = document.getElementById('currencyResult');
+let map;
+
+const openWeatherApiKey = 'c350104bfeadd8ce6381bdbd1a058ed1';
+
+function initMap(lat, lon) {
+    if (map) {
+        map.remove();
+    }
+    map = L.map('map').setView([lat, lon], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    L.marker([lat, lon]).addTo(map)
+        .openPopup();
+}
+
+async function fetchWeather(city) {
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${openWeatherApiKey}&units=metric`;
+
+    try {
+        const response = await fetch(weatherUrl);
+        const data = await response.json();
+
+        displayWeather(data);
+        initMap(data.coord.lat, data.coord.lon);
+        fetchAQI(data.coord.lat, data.coord.lon);
+        fetchTime(data.coord.lat, data.coord.lon);
+        fetchCurrency(data.sys.country);
+    } catch (error) {
+        weatherResult.innerHTML = `<p>Error</p>`;
+    }
+}
+
+function displayWeather(data) {
+    const { name, main, weather, wind, sys, coord } = data;
+    const countryCode = sys.country.toLowerCase();
+    const flagUrl = `https://flagsapi.com/${sys.country}/flat/64.png`;
+
+    weatherResult.innerHTML = `
+        <h2>${name}, ${sys.country}</h2>
+        <img src="${flagUrl}" alt="Флаг ${sys.country}" width="50" height="30">
+        <p>Координаты: ${coord.lat}, ${coord.lon}</p>
+        <p>Температура: ${main.temp}°C</p>
+        <p>Ощущается как: ${main.feels_like}°C</p>
+        <p>Погода: ${weather[0].description}</p>
+        <p>Влажность: ${main.humidity}%</p>
+        <p>Давление: ${main.pressure} hPa</p>
+        <p>Скорость ветра: ${wind.speed} м/с</p>
+    `;
+}
+
+async function fetchAQI(lat, lon) {
+    const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openWeatherApiKey}`;
+
+    try {
+        const response = await fetch(aqiUrl);
+        const data = await response.json();
+        displayAQI(data);
+    } catch (error) {
+        aqiResult.innerHTML = `<p>Error with getting AQI</p>`;
+    }
+}
+
+function displayAQI(data) {
+    const aqi = data.list[0].main.aqi;
+    const aqiLevels = ["Хороший", "Приемлемый", "Умеренный", "Плохой", "Очень плохой"];
+    aqiResult.innerHTML = `<p>Индекс качества воздуха: ${aqi} - ${aqiLevels[aqi - 1]}</p>`;
+}
+
+async function fetchTime(lat, lon) {
+    const timeUrl = `https://www.timeapi.io/api/Time/current/coordinate?latitude=${lat}&longitude=${lon}`;
+
+    try {
+        const response = await fetch(timeUrl);
+        const data = await response.json();
+        timeResult.innerHTML = `<p>Текущее время: ${data.time}</p>`;
+    } catch (error) {
+        timeResult.innerHTML = `<p>Ошибка при получении времени</p>`;
+    }
+}
+
+async function fetchCurrency(countryCode) {
+    const currencyUrl = `https://restcountries.com/v3.1/alpha/${countryCode}`;
+
+    try {
+        const response = await fetch(currencyUrl);
+        const data = await response.json();
+        const currencyInfo = Object.values(data[0].currencies)[0];
+
+        currencyResult.innerHTML = `<p><strong>Валюта:</strong> ${currencyInfo.name} (${currencyInfo.symbol})</p>`;
+    } catch (error) {
+        currencyResult.innerHTML = `<p>Ошибка при получении валюты</p>`;
+    }
+}
+
+weatherForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const city = cityInput.value.trim();
+    if (city) {
+        fetchWeather(city);
+    } else {
+        weatherResult.innerHTML = `<p>Введите название города</p>`;
+    }
+});

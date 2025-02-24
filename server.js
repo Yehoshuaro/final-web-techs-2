@@ -175,6 +175,8 @@ app.delete("/blogs/:id", async (req, res) => {
 });
 
 
+// My Weather
+
 app.get("/weather", async (req, res) => {
     try {
         const { city } = req.query;
